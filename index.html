@@ -117,9 +117,11 @@
             gap: 50px;
             flex-wrap: wrap;
         }
-        .stat-item { text-align: center; }
+        .stat-item { text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .stat-item:hover { transform: scale(1.1); }
         .stat-number { font-size: 2.2em; font-weight: 800; color: #ffcc00; }
         .stat-label { font-size: 0.9em; color: #888; margin-top: 4px; }
+        html { scroll-behavior: smooth; }
         .search-container {
             max-width: 600px;
             margin: 0 auto 30px;
@@ -172,39 +174,39 @@
 <p class="subtitle">162 sets</p>
 
 <div class="stats">
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-starwars">
         <div class="stat-number">43</div>
         <div class="stat-label">Star Wars</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-lotr">
         <div class="stat-number">8</div>
         <div class="stat-label">LOTR</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-hp">
         <div class="stat-number">8</div>
         <div class="stat-label">Harry Potter</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-pirates">
         <div class="stat-number">6</div>
         <div class="stat-label">Pirates</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-cars">
         <div class="stat-number">19</div>
         <div class="stat-label">Voitures</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-medieval">
         <div class="stat-number">6</div>
         <div class="stat-label">M&eacute;di&eacute;val</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-autres">
         <div class="stat-number">21</div>
         <div class="stat-label">Autres</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-technic">
         <div class="stat-number">33</div>
         <div class="stat-label">Technic</div>
     </div>
-    <div class="stat-item">
+    <div class="stat-item" data-target="cat-f1">
         <div class="stat-number">18</div>
         <div class="stat-label">F1</div>
     </div>
@@ -217,7 +219,7 @@
 </div>
 
 <!-- STAR WARS -->
-<div class="section section-starwars">
+<div id="cat-starwars" class="section section-starwars">
     <h2>LEGO Star Wars</h2>
     <div class="grid">
         <div class="card">
@@ -576,7 +578,7 @@
             <img class="card-img" src="https://images.brickset.com/sets/large/75144-1.jpg" alt="75144 Snowspeeder (UCS)" loading="lazy">
             <div class="card-body">
                 <div class="card-ref">75144</div>
-                <div class="card-title">Snowspeeder (UCS)</div>
+                <div class="card-title">div class="card-title">Snowspeeder (UCS)</div>
                 <a class="card-link" href="https://www.lego.com/product/snowspeeder-75144" target="_blank">Voir sur LEGO.com &rarr;</a>
             </div>
         </div>
@@ -611,7 +613,7 @@
 </div>
 
 <!-- VOITURES -->
-<div class="section section-cars">
+<div id="cat-cars" class="section section-cars">
     <h2>LEGO Voitures</h2>
     <div class="grid">
         <div class="card">
@@ -789,7 +791,7 @@
 </div>
 
 <!-- ARCHITECTURE -->
-<div class="section section-architecture">
+<div id="cat-autres" class="section section-architecture">
     <h2>LEGO Architecture</h2>
     <div class="grid">
         <div class="card">
@@ -857,7 +859,7 @@
 </div>
 
 <!-- SEIGNEUR DES ANNEAUX & HOBBIT -->
-<div class="section section-lotr">
+<div id="cat-lotr" class="section section-lotr">
     <h2>Seigneur des Anneaux &amp; Hobbit</h2>
     <div class="grid">
         <div class="card">
@@ -936,7 +938,7 @@
 </div>
 
 <!-- PIRATES -->
-<div class="section section-pirates">
+<div id="cat-pirates" class="section section-pirates">
     <h2>Pirates</h2>
     <div class="grid">
         <div class="card">
@@ -997,7 +999,7 @@
 </div>
 
 <!-- HARRY POTTER -->
-<div class="section section-hp">
+<div id="cat-hp" class="section section-hp">
     <h2>Harry Potter</h2>
     <div class="grid">
         <div class="card">
@@ -1076,7 +1078,7 @@
 </div>
 
 <!-- M&EACUTE;DI&EACUTE;VAL -->
-<div class="section section-medieval">
+<div id="cat-medieval" class="section section-medieval">
     <h2>M&eacute;di&eacute;val</h2>
     <div class="grid">
         <div class="card">
@@ -1214,7 +1216,7 @@
 </div>
 
 <!-- DIVERS -->
-<div class="section section-technic">
+<div id="cat-technic" class="section section-technic">
     <h2>LEGO Technic</h2>
     <div class="grid">
         <div class="card">
@@ -1517,7 +1519,7 @@
     </div>
 </div>
 
-<div class="section section-f1">
+<div id="cat-f1" class="section section-f1">
     <h2>Formule 1</h2>
     <div class="grid">
         <div class="card">
@@ -1808,6 +1810,15 @@ document.getElementById('searchInput').addEventListener('input', function() {
     } else {
         countEl.textContent = '';
     }
+});
+
+document.querySelectorAll('.stat-item[data-target]').forEach(function(item) {
+    item.addEventListener('click', function() {
+        var target = document.getElementById(this.getAttribute('data-target'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
 });
 </script>
 </body>
